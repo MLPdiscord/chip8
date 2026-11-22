@@ -1,0 +1,5 @@
+tests
+*.exe
+objects
+.vscode
+dependencies
