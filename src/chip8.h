@@ -19,6 +19,7 @@ typedef struct Chip8
     uint16_t stack[16];
 
     int8_t held_key;
+    bool sound_just_started;
 } Chip8;
 
 void Chip8LoadFont(Chip8 *chip8);

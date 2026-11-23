@@ -34,6 +34,8 @@ void Chip8LoadFont(Chip8 *chip8)
 
 void Chip8Step(Chip8 *chip8)
 {
+    chip8->sound_just_started = false;
+
     if (chip8->delay_timer > 0)
     {
         chip8->delay_timer -= 1;
@@ -257,6 +259,10 @@ void Chip8Step(Chip8 *chip8)
             chip8->delay_timer = chip8->vregs[x];
             return;
         case 0x18:
+            if (chip8->sound_timer == 0)
+            {
+                chip8->sound_just_started = true;
+            }
             chip8->sound_timer = chip8->vregs[x];
             return;
         case 0x1e:
