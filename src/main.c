@@ -24,7 +24,7 @@ int main()
     }
 
     Chip8LoadFont(&chip8);
-    Chip8LoadFile(&chip8, "tests/7-beep.ch8");
+    Chip8LoadFile(&chip8, "tests/Breakout [Carmelo Cortez, 1979].ch8");
 
     const int screenWidth = chip8.display.width * 8 * pixel_scale;
     const int screenHeight = chip8.display.height * pixel_scale;
@@ -49,7 +49,10 @@ int main()
     }
     PlayAudioStream(stream);
 
-    SetTargetFPS(60);
+    SetTargetFPS(240);
+
+    double last_time = GetTime();
+    double time_acc = 0;
 
     while (!WindowShouldClose())
     {
@@ -67,7 +70,12 @@ int main()
             UpdateAudioStream(stream, buffer, BUFFER_SIZE);
         }
 
-        Chip8Step(&chip8);
+        double this_time = GetTime();
+        time_acc += (this_time - last_time) * 60;
+        last_time = this_time;
+        int elapsed = time_acc;
+        time_acc -= elapsed;
+        Chip8Step(&chip8, elapsed);
 
         BeginDrawing();
         ClearBackground(BLACK);

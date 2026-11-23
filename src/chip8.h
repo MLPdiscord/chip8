@@ -24,7 +24,7 @@ typedef struct Chip8
 
 void Chip8LoadFont(Chip8 *chip8);
 
-void Chip8Step(Chip8 *chip8);
+void Chip8Step(Chip8 *chip8, int ticks_elapsed);
 
 void Chip8LoadFile(Chip8 *chip8, const char *filename);
 

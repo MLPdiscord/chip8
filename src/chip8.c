@@ -32,17 +32,31 @@ void Chip8LoadFont(Chip8 *chip8)
     }
 }
 
-void Chip8Step(Chip8 *chip8)
+void Chip8Step(Chip8 *chip8, int ticks_elapsed)
 {
     chip8->sound_just_started = false;
 
     if (chip8->delay_timer > 0)
     {
-        chip8->delay_timer -= 1;
+        if (chip8->delay_timer > ticks_elapsed)
+        {
+            chip8->delay_timer -= ticks_elapsed;
+        }
+        else
+        {
+            chip8->delay_timer = 0;
+        }
     }
     if (chip8->sound_timer > 0)
     {
-        chip8->sound_timer -= 1;
+        if (chip8->sound_timer > ticks_elapsed)
+        {
+            chip8->sound_timer -= ticks_elapsed;
+        }
+        else
+        {
+            chip8->sound_timer = 0;
+        }
     }
 
     if (chip8->held_key > -1)
